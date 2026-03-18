@@ -2,18 +2,21 @@ name: Web App CI
 on:
   push:
     branches: [main]
+permissions:
+  contents: read
+  pages: write
+  id-token: write
 jobs:
-  build:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout
         uses: actions/checkout@v4
-      - name: Run HTML check
-        run: |
-          echo "Checking HTML files"
-          ls *.html
-      - name: Upload artifact
-        uses: actions/upload-artifact@v4
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          name: website
-          path: index.html
+          path: .
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
