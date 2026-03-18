@@ -1,0 +1,19 @@
+name: Web App CI
+on:
+  push:
+    branches: [main]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Run HTML check
+        run: |
+          echo "Checking HTML files"
+          ls *.html
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: website
+          path: index.html
